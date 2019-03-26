@@ -55,7 +55,17 @@ public class GivenBlackbox {
 
     // A sample course
     Course twoStudent;
-    HashMap<String, Integer> twoStudentExpected = new HashMap<String, Integer>(); 
+    HashMap<String, Integer> twoStudentExpected = new HashMap<String, Integer>();
+    Course zeroStudent;
+    Course failingClass;
+    Course justMissedClass;
+    HashMap<String, Integer> justMissedExpected = new HashMap<>();
+    Course negativeClass;
+    HashMap<String, Integer> negativeClassExpected = new HashMap<>();
+    Course negativeSoloClass;
+    HashMap<String, Integer> negativeSoloExpected = new HashMap<>();
+    Course lonelyClass;
+    HashMap<String, Integer> lonelyExpected = new HashMap<>();
     
     
     @Before
@@ -74,6 +84,53 @@ public class GivenBlackbox {
         twoStudentExpected.put("C", 0);
         twoStudentExpected.put("D", 0);
         twoStudentExpected.put("F", 0);
+        
+        zeroStudent = createCourse("SER334");
+        
+        failingClass = createCourse("CSE240");
+        failingClass.set_points("Rob",0);
+        failingClass.set_points("Trev",0);
+        
+        justMissedClass = createCourse("BIO181");
+        justMissedClass.set_points("Brown", 100);
+        justMissedClass.set_points("John", 80);
+        justMissedClass.set_points("James", 65);
+        justMissedClass.set_points("Jacob", 50);
+        justMissedClass.set_points("Jordan", 35);
+        
+        justMissedExpected.put("A", 1);
+        justMissedExpected.put("B", 1);
+        justMissedExpected.put("C", 1);
+        justMissedExpected.put("D", 1);
+        justMissedExpected.put("F", 1);
+        
+        negativeClass = createCourse("SER321");
+        negativeClass.set_points("Andrew", 100);
+        negativeClass.set_points("Jacopo", -1);
+        
+        negativeClassExpected.put("A", 1);
+        negativeClassExpected.put("B", 0);
+        negativeClassExpected.put("C", 0);
+        negativeClassExpected.put("D", 0);
+        negativeClassExpected.put("F", 0);
+        
+        negativeSoloClass = createCourse("CHM111");
+        negativeSoloClass.set_points("Jason", -5);
+        
+        negativeSoloExpected.put("A", 0);
+        negativeSoloExpected.put("B", 0);
+        negativeSoloExpected.put("C", 0);
+        negativeSoloExpected.put("D", 0);
+        negativeSoloExpected.put("F", 0);
+        
+        lonelyClass = createCourse("EGR280");
+        lonelyClass.set_points("Bella", 1);
+        
+        lonelyExpected.put("A", 1);
+        lonelyExpected.put("B", 0);
+        lonelyExpected.put("C", 0);
+        lonelyExpected.put("D", 0);
+        lonelyExpected.put("F", 0);
     }
 
 
@@ -81,9 +138,49 @@ public class GivenBlackbox {
     @Test
     public void twoStudent() {
         HashMap<String, Integer> ans = twoStudent.countOccurencesLetterGrades();
-        System.out.println(ans);
+        //System.out.println(ans);
         assertTrue(ans.equals(twoStudentExpected));
     }
-
-
+    
+    @Test(expected=NullPointerException.class)
+    public void zeroStudent() {
+    	@SuppressWarnings("unused")
+		HashMap<String, Integer> ans = zeroStudent.countOccurencesLetterGrades();
+    	//System.out.println(ans);
+    }
+    
+    @Test(expected=ArithmeticException.class)
+    public void failingClass() {
+    	@SuppressWarnings("unused")
+		HashMap<String, Integer> ans = failingClass.countOccurencesLetterGrades();
+    	//System.out.println(ans);
+    }
+    
+    @Test
+    public void justMissedClass() {
+    	HashMap<String, Integer> ans = justMissedClass.countOccurencesLetterGrades();
+    	//System.out.println(ans);
+    	assertTrue(ans.equals(justMissedExpected));
+    }
+    
+    @Test
+    public void negativeClass() {
+    	HashMap<String, Integer> ans = negativeClass.countOccurencesLetterGrades();
+    	//System.out.println(ans);
+    	assertTrue(ans.equals(negativeClassExpected));
+    }
+    
+    @Test
+    public void negativeSolo() {
+    	HashMap<String, Integer> ans = negativeSoloClass.countOccurencesLetterGrades();
+    	//System.out.println(ans);
+    	assertTrue(ans.equals(negativeSoloExpected));
+    }
+    
+    @Test
+    public void lonelyClass() {
+    	HashMap<String, Integer> ans = lonelyClass.countOccurencesLetterGrades();
+    	//System.out.println(ans);
+    	assertTrue(ans.equals(lonelyExpected));
+    }
 }
