@@ -106,11 +106,6 @@ public class Course {
         return points;
     }
     
-
-    public int getStudent_Points(String student) {
-        return points.get(student);
-    }
-    
     public int getStudent_Points(Student student) {
         return points.get(student.getAsurite());
     }
