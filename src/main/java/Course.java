@@ -102,7 +102,7 @@ public class Course {
     }
 
 
-    public HashMap<String, Integer> GetPoints(){
+    public HashMap<String, Integer> getPoints(){
         return points;
     }
     
