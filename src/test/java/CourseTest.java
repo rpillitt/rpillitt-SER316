@@ -49,17 +49,23 @@ public class CourseTest {
 		assertFalse(twoCountedCourse.addStudent(null));
 	}
 	
+	/**Description: Tests sequences <49, 51, 52, 53, 54, 57, 60, 61, 62, 63, 65, 66, 67, 69, 70, 72, 74, 62, 76, 77>, 
+	 * <49, 51, 52, 53, 54, 57, 60, 61, 62, 63, 65, 66, 69, 72, 74, 62, 76, 77>
+	 * */
 	@Test
 	public void threeStudents() {
 		threeStudentCourse = new Course("CSE240");
+		threeStudentCourse.addStudent(new Student("Jessie", Major.valueOf("SER")));
 		threeStudentCourse.set_points("Jessie", 60);
 		threeStudentCourse.set_points("Jamie", 70);
 		threeStudentCourse.set_points("Jordan", 80);
 		double ans = threeStudentCourse.calculateAverageWithoutMinWithoutMax();
-		System.out.println(ans);
 		assertTrue(ans == 70.0);
 	}
 
+	/**Description: Tests sequence <49, 51, 52, 53, 54, 57, 60, 61, 62, 63, 72, 74, 62, 76, 77>
+	 * 
+	 */
 	@Test
 	public void twoCounted() {
 		twoCountedCourse = new Course("SER315");
@@ -70,6 +76,9 @@ public class CourseTest {
 		assertTrue(ans == 75.0);
 	}
 	
+	/**Description: Tests sequence <49, 51, 52, 53, 54, 57, 58>
+	 * 
+	 */
 	@Test
 	public void twoStudents() {
 		twoStudentCourse = new Course("SER316");
@@ -79,6 +88,9 @@ public class CourseTest {
 		assertTrue(ans == 90.0);
 	}
 	
+	/**Description: Tests sequence <49, 51, 52, 53, 54, 55>
+	 * 
+	 */
 	@Test
 	public void oneStudent() {
 		oneStudentCourse = new Course("EGR280");

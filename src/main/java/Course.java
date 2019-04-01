@@ -70,16 +70,14 @@ public class Course {
          else {
             int allPoints = 0;
             for (int point: collection) {
-                if (point >= 0) {
-                    counter++;
-                    if (point < min){
-                        min = point;
-                    }
-                    if (point > max){
-                        max = point;
-                    }
-                    allPoints = allPoints + point;
+            	counter++;
+            	if (point < min) {
+            		min = point;
+            		}
+                if (point > max){
+                    max = point;
                 }
+                allPoints = allPoints + point;
             }  
             int totalPoints = allPoints-max-min;
                 return totalPoints/(double)(counter-2);
@@ -92,7 +90,20 @@ public class Course {
     // sets points for a student 
     public void set_points(String name, int points) {
     	//System.out.println(points);
-        this.points.put(name, points);
+    	//SER316 Start
+    	ArrayList<String> asurites = new ArrayList<>();
+    	for (int i = 0; i < this.getStudents().size(); i++) {
+    		asurites.add(this.getStudents().get(i).getAsurite());
+    	}    		
+    	
+    	if (!asurites.contains(name)) {
+    		this.addStudent(new Student(name, null));
+    		this.points.put(name,  points);
+    	}
+    	else {
+    		this.points.put(name, points);
+    	}
+    	//SER316 End
     }
     
     
