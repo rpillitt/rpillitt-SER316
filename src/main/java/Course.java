@@ -51,18 +51,27 @@ public class Course {
          int counter = 0;
          int min = Integer.MAX_VALUE;
          int max = Integer.MIN_VALUE;
-         if(collection.size() == 1)
+         
+         //SER316 Start
+         for (int i = collection.size(); i > 0; i--) {
+        	 if (collection.get(i-1) < 0) {
+        		 collection.remove(i-1);
+        	 }
+         }
+         //SER316 End
+         //Above section added to truly throw out negative points and thus not count them
+         
+         if (collection.size() == 1) {
             return collection.get(0);
-        
-        else if(collection.size() == 2 ){
+         }
+         else if (collection.size() == 2) {
             return (double)(collection.get(0) + collection.get(1))/2;
-        }
-        else {
+         }
+         else {
             int allPoints = 0;
-            for(int point: collection){
+            for (int point: collection) {
                 if (point >= 0) {
-                    
-                    counter = counter++;
+                    counter++;
                     if (point < min){
                         min = point;
                     }
@@ -71,11 +80,10 @@ public class Course {
                     }
                     allPoints = allPoints + point;
                 }
-            }
-            
+            }  
             int totalPoints = allPoints-max-min;
-                return totalPoints/(double)(counter-1); 
-
+                return totalPoints/(double)(counter-2);
+                //Above line had (counter-1), which does not work when removing two values
         }
     }
     
@@ -83,7 +91,7 @@ public class Course {
     // if student with the name (asurite member) is not yet included student needs to be added to student list 
     // sets points for a student 
     public void set_points(String name, int points) {
-    	System.out.println(points);
+    	//System.out.println(points);
         this.points.put(name, points);
     }
     
@@ -92,13 +100,16 @@ public class Course {
     // Students should only be added when they are not yet in the course (names (asurite member) needs to be unique)
     ArrayList<Student> students  = new ArrayList<Student>();
     public boolean addStudent(Student s) {
-        boolean added = false;
-        if (!students.contains(s) && !s.equals(null)) {
+        //SER316 Start
+    	boolean added = false;
+        if (!students.contains(s) && s != null) {
         	students.add(s);
             points.put(s.getAsurite(), -1);
             added = true;
         }
         return added;
+        //SER316 End
+        //Needed changing because there was no check for duplication prior to edit
     }
 
 
