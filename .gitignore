@@ -15,7 +15,6 @@
 
 ### Gradle ###
 .gradle
-/.gradle/
 /build/
 
 # Mac DS file
