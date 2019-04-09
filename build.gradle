@@ -24,7 +24,8 @@ dependencies {
 test {
 filter {
 	//specific test class
-	excludeTestsMatching "GivenBlackbox"
+	includeTestsMatching "GivenWhiteBox"
+	includeTestsMatching "CourseTest"
 }
 }
 
