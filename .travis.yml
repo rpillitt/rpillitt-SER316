@@ -1,3 +1,4 @@
+before_install: -chmod +x gradlew
 install: gradle wrapper --gradle-version 4.2
 language: java
 jdk: oraclejdk8
